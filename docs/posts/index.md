@@ -4,7 +4,7 @@ title: 文章
 
 # 文章
 
-这里会放所有正式发布的文章。新增文章时，在 `docs/posts` 目录下创建一个 Markdown 文件，然后把链接补到本页和 `docs/.vuepress/config.js` 的侧边栏里。
+这里会放所有正式发布的文章。新增文章时，在 `docs/posts` 目录下创建一个 Markdown 文件，然后把链接补到本页和 `docs/.vitepress/config.mjs` 的侧边栏里。
 
 ## 列表
 
