@@ -1,12 +1,15 @@
 ---
 title: oh：一个面向 OpenHarmony 的编译命令管理工具
 date: 2026-06-26
-category:
+description: 梳理 oh 的安装、编译封装、多源码目录管理、同步流程、历史记录和资源查看能力。
+categories:
   - 工具
-tag:
+tags:
   - OpenHarmony
   - Python
   - CLI
+top: 1
+recommend: 1
 ---
 
 # oh：一个面向 OpenHarmony 的编译命令管理工具

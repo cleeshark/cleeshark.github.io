@@ -1,9 +1,10 @@
 ---
 title: Hello world
 date: 2026-06-26
-category:
+description: 这个博客的新起点。以后会放一些游戏、电影、代码和日常记录。
+categories:
   - 随笔
-tag:
+tags:
   - 博客
 ---
 
