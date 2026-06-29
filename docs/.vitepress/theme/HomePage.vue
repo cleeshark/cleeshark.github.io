@@ -137,6 +137,7 @@ let context
 let width = 0
 let height = 0
 let pointer = { x: -1000, y: -1000, active: false }
+let time = 0
 
 function resizeCanvas() {
   const canvas = canvasRef.value
@@ -153,54 +154,75 @@ function resizeCanvas() {
 }
 
 function createParticles() {
-  const count = Math.max(42, Math.min(96, Math.floor(width / 18)))
+  const count = Math.max(90, Math.min(180, Math.floor(width / 9)))
   particles = Array.from({ length: count }, (_, index) => {
-    const angle = index * 2.399963
-    const radius = Math.sqrt(index / count) * Math.min(width, height) * 0.48
+    const group = index % 4
+    const anchors = [
+      { x: width * 0.2, y: height * 0.28 },
+      { x: width * 0.72, y: height * 0.22 },
+      { x: width * 0.62, y: height * 0.68 },
+      { x: width * 0.28, y: height * 0.72 }
+    ]
+    const anchor = anchors[group]
+    const angle = index * 2.399963 + group * 0.8
+    const radius = 48 + Math.random() * Math.min(width, height) * 0.24
     return {
-      x: width * 0.52 + Math.cos(angle) * radius,
-      y: height * 0.52 + Math.sin(angle) * radius,
-      vx: (Math.random() - 0.5) * 0.35,
-      vy: (Math.random() - 0.5) * 0.35,
-      size: 1.4 + Math.random() * 2.8,
-      mass: 0.7 + Math.random() * 1.4
+      x: anchor.x + Math.cos(angle) * radius,
+      y: anchor.y + Math.sin(angle) * radius,
+      vx: Math.cos(angle + Math.PI / 2) * (0.25 + Math.random() * 0.45),
+      vy: Math.sin(angle + Math.PI / 2) * (0.25 + Math.random() * 0.45),
+      size: 1.2 + Math.random() * 2.6,
+      mass: 0.7 + Math.random() * 1.5,
+      hue: group,
+      phase: Math.random() * Math.PI * 2,
+      orbit: 36 + Math.random() * 110,
+      anchor
     }
   })
 }
 
 function step() {
   if (!context) return
+  time += 0.012
   context.clearRect(0, 0, width, height)
+  drawFieldWash()
 
-  const centerX = width * 0.58
-  const centerY = height * 0.46
+  context.save()
+  context.globalCompositeOperation = 'lighter'
 
   for (const p of particles) {
-    const dx = centerX - p.x
-    const dy = centerY - p.y
-    p.vx += dx * 0.00018 * p.mass
-    p.vy += dy * 0.00018 * p.mass
+    const anchorX = p.anchor.x + Math.cos(time * 0.9 + p.phase) * p.orbit
+    const anchorY = p.anchor.y + Math.sin(time * 0.7 + p.phase) * p.orbit * 0.58
+    const dx = anchorX - p.x
+    const dy = anchorY - p.y
+    const swirl = Math.atan2(dy, dx) + Math.PI / 2
+    const wave = Math.sin(time * 2.2 + p.phase + p.x * 0.006 + p.y * 0.004)
+
+    p.vx += dx * 0.00042 * p.mass
+    p.vy += dy * 0.00042 * p.mass
+    p.vx += Math.cos(swirl) * 0.018 + Math.cos(wave + p.phase) * 0.026
+    p.vy += Math.sin(swirl) * 0.018 + Math.sin(wave - p.phase) * 0.026
 
     if (pointer.active) {
       const px = p.x - pointer.x
       const py = p.y - pointer.y
       const distance = Math.max(24, Math.hypot(px, py))
-      if (distance < 180) {
-        const force = (180 - distance) / 180
-        p.vx += (px / distance) * force * 1.8
-        p.vy += (py / distance) * force * 1.8
+      if (distance < 220) {
+        const force = (220 - distance) / 220
+        p.vx += (px / distance) * force * 2.2
+        p.vy += (py / distance) * force * 2.2
       }
     }
 
-    p.vx *= 0.965
-    p.vy *= 0.965
+    p.vx *= 0.94
+    p.vy *= 0.94
     p.x += p.vx
     p.y += p.vy
 
-    if (p.x < -20) p.x = width + 20
-    if (p.x > width + 20) p.x = -20
-    if (p.y < -20) p.y = height + 20
-    if (p.y > height + 20) p.y = -20
+    if (p.x < -40) p.x = width + 40
+    if (p.x > width + 40) p.x = -40
+    if (p.y < -40) p.y = height + 40
+    if (p.y > height + 40) p.y = -40
   }
 
   for (let i = 0; i < particles.length; i += 1) {
@@ -208,8 +230,11 @@ function step() {
       const a = particles[i]
       const b = particles[j]
       const distance = Math.hypot(a.x - b.x, a.y - b.y)
-      if (distance < 118) {
-        context.strokeStyle = `rgba(37, 99, 235, ${0.18 * (1 - distance / 118)})`
+      if (distance < 104) {
+        const alpha = 0.2 * (1 - distance / 104)
+        context.strokeStyle = a.hue === b.hue
+          ? `rgba(37, 99, 235, ${alpha})`
+          : `rgba(20, 184, 166, ${alpha * 0.55})`
         context.lineWidth = 1
         context.beginPath()
         context.moveTo(a.x, a.y)
@@ -220,10 +245,16 @@ function step() {
   }
 
   for (const p of particles) {
+    const colors = [
+      ['rgba(37, 99, 235, 0.72)', 'rgba(37, 99, 235, 0)'],
+      ['rgba(20, 184, 166, 0.66)', 'rgba(20, 184, 166, 0)'],
+      ['rgba(245, 158, 11, 0.52)', 'rgba(245, 158, 11, 0)'],
+      ['rgba(14, 165, 233, 0.64)', 'rgba(14, 165, 233, 0)']
+    ][p.hue]
     const glow = context.createRadialGradient(p.x, p.y, 0, p.x, p.y, p.size * 6)
-    glow.addColorStop(0, 'rgba(37, 99, 235, 0.72)')
-    glow.addColorStop(0.45, 'rgba(20, 184, 166, 0.24)')
-    glow.addColorStop(1, 'rgba(37, 99, 235, 0)')
+    glow.addColorStop(0, colors[0])
+    glow.addColorStop(0.45, 'rgba(248, 250, 252, 0.18)')
+    glow.addColorStop(1, colors[1])
     context.fillStyle = glow
     context.beginPath()
     context.arc(p.x, p.y, p.size * 6, 0, Math.PI * 2)
@@ -235,7 +266,27 @@ function step() {
     context.fill()
   }
 
+  context.restore()
   animationFrame = requestAnimationFrame(step)
+}
+
+function drawFieldWash() {
+  const gradient = context.createLinearGradient(0, 0, width, height)
+  gradient.addColorStop(0, 'rgba(37, 99, 235, 0.035)')
+  gradient.addColorStop(0.45, 'rgba(20, 184, 166, 0.04)')
+  gradient.addColorStop(1, 'rgba(245, 158, 11, 0.03)')
+  context.fillStyle = gradient
+  context.fillRect(0, 0, width, height)
+
+  for (let i = 0; i < 5; i += 1) {
+    const x = width * (0.16 + i * 0.18) + Math.cos(time + i) * 18
+    const y = height * (0.2 + (i % 3) * 0.22) + Math.sin(time * 1.3 + i) * 22
+    context.strokeStyle = `rgba(15, 23, 42, ${0.025 + i * 0.004})`
+    context.lineWidth = 1
+    context.beginPath()
+    context.arc(x, y, 70 + i * 26, time + i, time + i + Math.PI * 1.2)
+    context.stroke()
+  }
 }
 
 function handlePointerMove(event) {
