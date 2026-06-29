@@ -11,44 +11,106 @@
           <a class="hero-button secondary" href="/archives/">查看归档</a>
         </div>
       </div>
-      <div class="hero-metrics" aria-label="站点概览">
-        <div>
-          <strong>02</strong>
-          <span>已发布文章</span>
+      <div class="hero-panel" aria-label="站点概览">
+        <div class="hero-metrics">
+          <div>
+            <strong>02</strong>
+            <span>已发布文章</span>
+          </div>
+          <div>
+            <strong>VitePress</strong>
+            <span>自动部署</span>
+          </div>
+          <div>
+            <strong>OpenHarmony</strong>
+            <span>最新主题</span>
+          </div>
         </div>
-        <div>
-          <strong>VitePress</strong>
-          <span>自动部署</span>
-        </div>
-        <div>
-          <strong>OpenHarmony</strong>
-          <span>最新主题</span>
+        <div class="hero-status">
+          <span>Now writing</span>
+          <strong>工具、系统、电影和游戏</strong>
         </div>
       </div>
     </section>
 
-    <section class="home-section">
+    <section class="home-section lead-section">
       <div class="section-heading">
         <p>Latest</p>
-        <h2>最新文章</h2>
+        <h2>最近写了什么</h2>
       </div>
-      <div class="article-grid">
+      <div class="article-layout">
         <a class="article-card featured" href="/posts/oh-openharmony-build-tool">
           <span class="card-label">工具 / OpenHarmony</span>
           <h3>oh：一个面向 OpenHarmony 的编译命令管理工具</h3>
           <p>梳理 oh 的安装、编译封装、多源码目录管理、同步流程、历史记录和资源查看能力。</p>
           <span class="card-link">阅读文章</span>
         </a>
-        <a class="article-card" href="/posts/hello-world">
-          <span class="card-label">随笔 / 博客</span>
-          <h3>Hello world</h3>
-          <p>这个博客的新起点。以后会放一些游戏、电影、代码和日常记录。</p>
-          <span class="card-link">阅读文章</span>
+        <div class="article-list-panel">
+          <a class="article-row" href="/posts/hello-world">
+            <span>随笔</span>
+            <strong>Hello world</strong>
+          </a>
+          <a class="article-row" href="/archives/">
+            <span>归档</span>
+            <strong>按时间浏览所有内容</strong>
+          </a>
+          <a class="article-row" href="/posts/">
+            <span>文章</span>
+            <strong>进入完整列表</strong>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <section class="home-section topic-section">
+      <div class="section-heading narrow-heading">
+        <p>Channels</p>
+        <h2>这里会写哪些东西</h2>
+      </div>
+      <div class="topic-grid">
+        <a class="topic-tile blue" href="/posts/oh-openharmony-build-tool">
+          <span>01</span>
+          <strong>代码和工具</strong>
+          <p>命令行、工程化、构建系统，以及实际开发中能省时间的小工具。</p>
+        </a>
+        <a class="topic-tile green" href="/posts/">
+          <span>02</span>
+          <strong>系统和问题</strong>
+          <p>遇到的问题、定位过程、解决方案和后续复盘。</p>
+        </a>
+        <a class="topic-tile amber" href="/archives/">
+          <span>03</span>
+          <strong>游戏和电影</strong>
+          <p>不只写技术，也留一些输入后的整理和观察。</p>
         </a>
       </div>
     </section>
 
-    <section class="home-section compact-section">
+    <section class="home-section rhythm-section">
+      <div class="section-heading">
+        <p>Pulse</p>
+        <h2>近期状态</h2>
+      </div>
+      <div class="rhythm-grid">
+        <div class="rhythm-item">
+          <span class="rhythm-date">2026.06</span>
+          <strong>博客重建</strong>
+          <p>从旧的静态产物迁移到 VitePress，接入 GitHub Actions 自动部署。</p>
+        </div>
+        <div class="rhythm-item">
+          <span class="rhythm-date">2026.06</span>
+          <strong>第一篇工具文档</strong>
+          <p>整理 `oh` 项目的使用方式和实现思路，作为新博客的第一篇正式文章。</p>
+        </div>
+        <div class="rhythm-item muted">
+          <span class="rhythm-date">Next</span>
+          <strong>继续补内容</strong>
+          <p>后续会把日常开发、影音记录和游戏体验慢慢补进来。</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="home-section route-section">
       <a class="route-card" href="/posts/">
         <span>Posts</span>
         <strong>文章列表</strong>
