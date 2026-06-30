@@ -2,9 +2,6 @@ node_modules/
 .temp/
 .cache/
 dist/
-docs/.vuepress/.cache/
-docs/.vuepress/.temp/
-docs/.vuepress/dist/
 docs/.vitepress/cache/
 docs/.vitepress/dist/
 npm-debug.log*

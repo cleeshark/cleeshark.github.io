@@ -33,6 +33,11 @@ jobs:
         run: npm ci
 
       - name: Build
+        env:
+          GISCUS_REPO: ${{ vars.GISCUS_REPO }}
+          GISCUS_REPO_ID: ${{ vars.GISCUS_REPO_ID }}
+          GISCUS_CATEGORY: ${{ vars.GISCUS_CATEGORY }}
+          GISCUS_CATEGORY_ID: ${{ vars.GISCUS_CATEGORY_ID }}
         run: npm run docs:build
 
       - name: Setup Pages

@@ -1,5 +1,6 @@
 ---
 title: 关于
+comment: false
 ---
 
 # 关于
@@ -11,5 +12,5 @@ title: 关于
 ## 写作方式
 
 - 文章放在 `docs/posts`。
-- 图片等静态资源可以放在 `docs/.vuepress/public`。
+- 图片等静态资源可以放在 `docs/public`。
 - 推送到 GitHub 后，GitHub Actions 会自动构建并部署。
