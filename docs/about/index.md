@@ -1,6 +1,7 @@
 ---
 title: 关于
 comment: false
+publish: false
 ---
 
 # 关于

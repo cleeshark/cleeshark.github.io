@@ -1,6 +1,7 @@
 ---
 title: 归档
 comment: false
+publish: false
 ---
 
 # 归档

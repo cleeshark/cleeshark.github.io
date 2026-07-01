@@ -1,6 +1,7 @@
 ---
 title: 文章
 comment: false
+publish: false
 ---
 
 # 文章
