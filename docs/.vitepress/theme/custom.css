@@ -23,26 +23,26 @@ body {
 }
 
 @media (min-width: 960px) {
-  .VPNavBar.has-sidebar > .wrapper {
+  .VPNavBar > .wrapper {
     padding: 0 32px !important;
   }
 
-  .VPNavBar.has-sidebar > .wrapper > .container {
+  .VPNavBar > .wrapper > .container {
     max-width: calc(var(--vp-layout-max-width) - 64px) !important;
   }
 
-  .VPNavBar.has-sidebar > .wrapper > .container > .title {
+  .VPNavBar > .wrapper > .container > .title {
     position: static !important;
     padding: 0 !important;
     width: auto !important;
   }
 
-  .VPNavBar.has-sidebar > .wrapper > .container > .content {
+  .VPNavBar > .wrapper > .container > .content {
     padding-right: 0 !important;
     padding-left: 0 !important;
   }
 
-  .VPNavBar.has-sidebar > .divider {
+  .VPNavBar > .divider {
     padding-left: 0 !important;
   }
 
