@@ -22,6 +22,35 @@ body {
   backdrop-filter: blur(18px);
 }
 
+@media (min-width: 960px) {
+  .VPNavBar.has-sidebar > .wrapper {
+    padding: 0 32px !important;
+  }
+
+  .VPNavBar.has-sidebar > .wrapper > .container {
+    max-width: calc(var(--vp-layout-max-width) - 64px) !important;
+  }
+
+  .VPNavBar.has-sidebar > .wrapper > .container > .title {
+    position: static !important;
+    padding: 0 !important;
+    width: auto !important;
+  }
+
+  .VPNavBar.has-sidebar > .wrapper > .container > .content {
+    padding-right: 0 !important;
+    padding-left: 0 !important;
+  }
+
+  .VPNavBar.has-sidebar > .divider {
+    padding-left: 0 !important;
+  }
+
+  .VPNavBarTitle.has-sidebar .title {
+    border-bottom-color: transparent !important;
+  }
+}
+
 .VPHome::before {
   background-image:
     radial-gradient(circle at 18% 18%, rgba(37, 99, 235, 0.16), transparent 28%),
